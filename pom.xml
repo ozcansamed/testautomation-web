@@ -24,7 +24,7 @@
                     <useUnlimitedThreads>true</useUnlimitedThreads>
                     <threadCount>4</threadCount>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <runOrder>reverse-alphabetical</runOrder>
+                    <runOrder>reversealphabetical</runOrder>
                     <includes>
                         <include>/*RoadRunner.java</include>
                         <include>/*FailedTestRunner.java</include>
