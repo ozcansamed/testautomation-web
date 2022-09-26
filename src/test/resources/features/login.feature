@@ -1,4 +1,4 @@
-
+@login
 Feature: ABN AMRO WebPage Login feature
 
   Validate all users can log in with valid credentials and land on home page
@@ -20,7 +20,7 @@ Feature: ABN AMRO WebPage Login feature
       | valid_user_email_3 | valid_user_password_3 | Home         |
 
   @wip
-  Scenario Outline: AC-1 => Negative Test Case => User shouldn't be able to login with invalid credentials
+  Scenario Outline: AC-1 => Negative Scenario => User shouldn't be able to login with invalid credentials
 
     When user enters invalid "<user_email_address>" or invalid "<password>" and clicks login button
     Then user cannot login and still on Login Page
@@ -32,7 +32,7 @@ Feature: ABN AMRO WebPage Login feature
       | growdev@growdev.com.br | growdev   |
 
 
-  Scenario Outline: AC-1 => System shouldn't allow users to access the application without providing credentials
+  Scenario Outline: AC-1 => Negative Scenario => System shouldn't allow users to access the application without providing credentials
   (for example, copy the URL after login, then log out,
   paste the same URL to the browser and try to skip the authentication step)
 
@@ -88,19 +88,36 @@ Feature: ABN AMRO WebPage Login feature
     Then User password field contains "Password" as a placeholder
 
 
-  Scenario: TC-6 => Validate user sees "Single Page Application" as the title.
+  Scenario: AC-6 => Validate user sees "Single Page Application" as the title.
 
     Then Page title is "Single Page Application"
 
 
-  Scenario: TC-7 => Validate in the login page, user sees given text above credentials area.
+  Scenario: AC-7 => Validate in the login page, user sees given text above credentials area.
 
     Then In login page, user sees "Automation doesn't stop at testing, it's just a beginning!"
 
 
-  Scenario: TC-8 => Validate in the login page, user sees given text in footer.
+  Scenario: AC-8 => Validate in the login page, user sees given text in footer.
 
     Then Footer is "Thank you for participating!"
 
 
+  Scenario: AC-9 => Validate in the login page, user sees ABN AMRO image as the background image.
+
+    Then Background image is "http://localhost:3002/img/bg1.jpg"
+
+  Scenario: AC-10 => Validate in the login page, user sees "#3E3F41" as background-color.
+
+    Then Background color is "#3E3F41"
+
+
+  Scenario: AC-11 => Validate system shouldn't allow users to copy the text entered into the Password field
+    When User enters valid credentials to password input box
+    Then the system should not allow user to copy password
+
+
+  Scenario: AC-12 => Password is not visible in the Page Source
+    When User enters valid credentials to password input box
+    Then the password is not visible in the Page Source
 

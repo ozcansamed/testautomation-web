@@ -1,6 +1,5 @@
 package com.abnamro.pages;
 
-import com.abnamro.utilities.ConfigurationReader;
 import com.abnamro.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,29 +26,10 @@ public class HomePage extends BasePage{
     @FindBy(tagName = "span")
     public WebElement signOutIcon;
 
+    @FindBy(xpath = "/div[@class='div-container']/p")
+    public WebElement containerText;
 
-
-
-
-
-    @FindBy(id = "email") // @FindBy(input#email) // @FindBy(xpath = "//input[@name='email']")
-    public WebElement inputUserEmailAddress;
-
-    @FindBy(id = "password") // @FindBy(input#password) // @FindBy(xpath = "//input[@type='password']")
-    public WebElement inputPassword;
-
-    @FindBy(xpath = "//input[@type='button']") // @FindBy(id = "login") // @FindBy(input#login)
-    public WebElement loginButton;
-
-    @FindBy(tagName = "h1")
-    public WebElement loginPageHeader;
-
-    @FindBy(tagName = "footer")
+    @FindBy(css = "footer > p")
     public WebElement footerText;
-
-    @FindBy (className = "login")
-    public WebElement loginSection;
-
-
 
 }

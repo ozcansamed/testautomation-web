@@ -1,6 +1,5 @@
 package com.abnamro.pages;
 
-import com.abnamro.utilities.ConfigurationReader;
 import com.abnamro.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,14 +31,10 @@ public class LoginPage extends BasePage {
     @FindBy(tagName = "h1")
     public WebElement loginPageHeader;
 
-    //@FindBy(css = "footer>p")
-   // public WebElement footerText;
-
     @FindBy(css = "footer > p")
     public WebElement footerText;
 
     @FindBy (className = "login")
     public WebElement loginSection;
-
 
 }

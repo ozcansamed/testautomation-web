@@ -5,16 +5,20 @@ import com.abnamro.pages.LoginPage;
 import com.abnamro.utilities.BrowserUtils;
 import com.abnamro.utilities.ConfigurationReader;
 import com.abnamro.utilities.Driver;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 
 
 public class LoginStepDefinitions {
@@ -22,14 +26,12 @@ public class LoginStepDefinitions {
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-    Actions action = new Actions(Driver.getDriver());
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.improved.URL"));
+        Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.featureAdded.URL"));
         BrowserUtils.sleep(1);
     }
-
 
     // ======= AC-1 => Positive Scenario => User should be able to log in with valid credentials==========
 
@@ -137,7 +139,6 @@ public class LoginStepDefinitions {
         Assert.assertTrue(isPasswordHidden);
     }
 
-
     // ======== AC-4 => User "E-mail address" field must contain a '@' character.  ========
 
     @Then("{string} must contain a {string} character")
@@ -185,18 +186,56 @@ public class LoginStepDefinitions {
         System.out.println("givenFooterText = " + givenFooterText);
     }
 
+    // ======== AC-9 => Validate in the login page, user sees ABN AMRO image as the background image. ========
 
+    @Then("Background image is {string}")
+    public void background_image_is(String expectedBackgroundImage) {
+        String actualBackgroundImage =loginPage.loginSection.getCssValue("background-image");
+        Assert.assertTrue(actualBackgroundImage.contains(expectedBackgroundImage));
+    }
 
+    // ======== AC-10 => Validate in the login page, user sees "#3E3F41" as background-color. ========
 
+    @Then("Background color is {string}")
+    public void background_color_is(String expectedBackgroundColor) {
+        String actualBackgroundColorCssValue =loginPage.loginSection.getCssValue("background-color");
 
+        String actualBackgroundColorHexColorValue = Color.fromString(actualBackgroundColorCssValue).asHex();
 
+        Assert.assertTrue(actualBackgroundColorHexColorValue.equalsIgnoreCase(expectedBackgroundColor));
+    }
 
+    // ======== AC-11 =>  Validate system shouldn't allow users to copy the text entered into the Password field ========
 
+    @When("User enters valid credentials to password input box")
+    public void user_enters_valid_credentials_to_password_input_box() {
+        loginPage.inputPassword.sendKeys("secret_password");
+        BrowserUtils.sleep(2);
+    }
 
+    @Then("the system should not allow user to copy password")
+    public void the_system_should_not_allow_user_to_copy_password() {
 
+        loginPage.inputPassword.sendKeys(Keys.chord(Keys.CONTROL, "A"));
+        loginPage.inputPassword.sendKeys(Keys.chord(Keys.CONTROL, "C"));
+        String localClipboardData = null;
+        try {
+            localClipboardData = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertNotEquals("secret_password", localClipboardData);
+    }
 
+    // ======== AC-12 => Password is not visible in the Page Source ========
 
-
-
+    @Then("the password is not visible in the Page Source")
+    public void the_password_is_not_visible_in_the_page_source() {
+        String value = loginPage.inputPassword.getAttribute("value");
+        System.out.println("value = " + value);
+        Assert.assertFalse(value.equals("secret_password"));
+    }
 
 }
