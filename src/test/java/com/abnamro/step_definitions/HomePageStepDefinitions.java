@@ -9,17 +9,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
-
 
 public class HomePageStepDefinitions {
 
@@ -29,7 +19,7 @@ public class HomePageStepDefinitions {
 
     @Given("user is on the home page with entering {string} and {string}")
     public void user_is_on_the_home_page_with_entering_and(String userEmailAddressEnv, String passwordEnv) {
-        Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.initial.URL"));
+        Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.ci.URL"));
         BrowserUtils.sleep(1);
         String userEmailAddress = System.getenv(userEmailAddressEnv);
         String password = System.getenv(passwordEnv);

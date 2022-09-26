@@ -7,7 +7,7 @@ Feature: ABN AMRO WebPage Login feature
   Background:
     Given user is on the login page
 
-
+  @smoke
   Scenario Outline: AC-1 => User should be able to login with valid credentials
     When user enters "<user_email_address>" and "<password>" and logins
     Then user lands on the "<page_heading>"
@@ -48,7 +48,7 @@ Feature: ABN AMRO WebPage Login feature
       | valid_user_email_2 | valid_user_password_2 |
       | valid_user_email_3 | valid_user_password_3 |
 
-
+  @regression
   Scenario Outline: AC-2 => "Please fill out this field." message should be displayed for any empty field
 
     When user enters only username "<user_email_address>" and tries to login
@@ -62,12 +62,12 @@ Feature: ABN AMRO WebPage Login feature
       |                    | 2020     | Please fill in this field. |
       | admin@admin.com    |          | Please fill in this field. |
 
-
+  @smoke
   Scenario: AC-3 => Validate the Password text entered into the 'Password' field is toggled to hide its visibility
 
     Then password field is toggled to hide
 
-
+  @smoke
   Scenario Outline: AC-4 => User "E-mail address" field must contain a '@' character.
 
     Then "<user_email_address>" must contain a "@" character
@@ -87,17 +87,17 @@ Feature: ABN AMRO WebPage Login feature
 
     Then User password field contains "Password" as a placeholder
 
-
+  @smoke
   Scenario: AC-6 => Validate user sees "Single Page Application" as the title.
 
     Then Page title is "Single Page Application"
 
-
+  @smoke
   Scenario: AC-7 => Validate in the login page, user sees given text above credentials area.
 
     Then In login page, user sees "Automation doesn't stop at testing, it's just a beginning!"
 
-
+  @smoke
   Scenario: AC-8 => Validate in the login page, user sees given text in footer.
 
     Then Footer is "Thank you for participating!"
@@ -111,7 +111,7 @@ Feature: ABN AMRO WebPage Login feature
 
     Then Background color is "#3E3F41"
 
-
+  @smoke
   Scenario: AC-11 => Validate system shouldn't allow users to copy the text entered into the Password field
     When User enters valid credentials to password input box
     Then the system should not allow user to copy password

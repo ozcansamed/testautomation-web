@@ -12,24 +12,33 @@ This repository contains automated UI tests against a static web application.
 
 ## How to run locally
 
-The easiest way to run tests and the static web app locally is using docker-compose.
-But there is also another way which includes installing a http server application (i.e. httpd).
+Before using IDE's run configurations, please add variables inside [.env](.env) file as Environment Variables.
+
+For IntelliJ IDEA, if you add those variables into Cucumber Java configuration template, you can easily run test within IDE without worrying about env variables.
+
+You can also use docker compose to run test against static web apps and/or deployed version.
 
 ### Prerequisites
 
 It will be nice to have;
 - [Java 11](https://openjdk.org/install/),
 - [maven](https://maven.apache.org/install.html)
+- google-chrome browser
 
 installed at your local env to run these tests with your desired IDEs.
 
-> **NOTE:** [.env](.env) normally should be git ignored but it is left in the git history to make local testing easier.
+> **NOTE:** [.env](.env) normally should be git ignored, but it is left in the git history to make local testing easier.
 > In normal cases, values inside `.env` file should only be placed in CI/CD environments.
 
 ### With docker
 
 To run docker commands you need to have docker and docker-compose installed at your local env.
 To install docker you can refer to [here](https://docs.docker.com/get-docker/).
+
+You need to install first a http server app to serve the static content.
+Apache httpd can be installed from [here](https://httpd.apache.org/docs/2.4/install.html)
+
+If you want to target static files inside [web-app](./web-app) rather than the netlify deployed one, you just need to change references for `web.abnamro.ci.URL` to `web.abnamro.initial.URL` in [step_definitions](src/test/java/com/abnamro/step_definitions).
 
 To run the tests;
 ```shell
@@ -55,14 +64,6 @@ When you are done with the services and the testing, you can stop the containers
 ```shell
 docker-compose down
 ```
-
-### Without docker
-
-You need to install first a http server app to serve the static content.
-Apache httpd can be installed from [here](https://httpd.apache.org/docs/2.4/install.html)
-
-After that you need to serve the contents in [./web-app](./web-app) at port `3001`.
-If you want to use a different port, consider updating the value of `web.abnamro.initial.URL` in [./configuration.properties](./configuration.properties).
 
 ## Test Framework Structure
 

@@ -6,12 +6,12 @@ Feature: ABN AMRO WebPage Home Page feature
   Background:
     Given user is on the home page with entering "valid_user_email_1" and "valid_user_password_1"
 
-
+  @smoke
   Scenario: AC-1 => User should see “Products” header on the home page
 
     Then user should see "Products" header
 
-
+  @smoke
   Scenario: AC-2 => Profile icon must be clickable.
 
     When User clicks profile icon
