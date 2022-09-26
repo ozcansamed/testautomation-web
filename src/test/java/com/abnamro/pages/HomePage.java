@@ -26,7 +26,7 @@ public class HomePage extends BasePage{
     @FindBy(tagName = "span")
     public WebElement signOutIcon;
 
-    @FindBy(xpath = "/div[@class='div-container']/p")
+    @FindBy(xpath = "//div[@class='div-container']/p")
     public WebElement containerText;
 
     @FindBy(css = "footer > p")

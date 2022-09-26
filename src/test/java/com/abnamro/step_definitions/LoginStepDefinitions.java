@@ -29,7 +29,7 @@ public class LoginStepDefinitions {
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.featureAdded.URL"));
+        Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.initial.URL"));
         BrowserUtils.sleep(1);
     }
 
@@ -164,26 +164,24 @@ public class LoginStepDefinitions {
     // ======== AC-6 => Validate user sees "Single Page Application" as the title.  ========
 
     @Then("Page title is {string}")
-    public void page_title_is(String givenTitle) {
-        BrowserUtils.verifyTitle(givenTitle);
+    public void page_title_is(String expectedTitle) {
+        BrowserUtils.verifyTitle(expectedTitle);
     }
 
     // ======== AC-7 => Validate in the login page, user sees given text above credentials area. ========
 
     @Then("In login page, user sees {string}")
-    public void in_login_page_user_sees(String givenText) {
+    public void in_login_page_user_sees(String expectedText) {
        String actualText = loginPage.loginPageHeader.getText();
-       Assert.assertTrue(actualText.equals(givenText));
+       Assert.assertTrue(actualText.equals(expectedText));
     }
 
     // ======== AC-8 => Validate in the login page, user sees given text in footer. ========
 
     @Then("Footer is {string}")
-    public void footer_is(String givenFooterText) {
+    public void footer_is(String expectedFooterText) {
         String actualFooterText = loginPage.footerText.getText();
-        Assert.assertTrue(actualFooterText.equals(givenFooterText));
-        System.out.println("actualFooterText = " + actualFooterText);
-        System.out.println("givenFooterText = " + givenFooterText);
+        Assert.assertTrue(actualFooterText.equals(expectedFooterText));
     }
 
     // ======== AC-9 => Validate in the login page, user sees ABN AMRO image as the background image. ========
