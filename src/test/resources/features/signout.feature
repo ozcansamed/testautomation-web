@@ -21,14 +21,7 @@ Feature: ABN AMRO WebPage Sign Out feature
     Then user shouldn't be able to land on home page
 
 
-  Scenario: AC-3 => The user must be signed out if the user close the tab (if there are multiple open tabs in the app, close all of them)
-
-    When user closes the tab
-    And user opens ABN AMRO webpage again
-    Then user shouldn't be able to land on home page
-
-
-  Scenario: AC-4 => The user must be signed out if the user is away from keyboard for 1 minutes (if the user does not do any  mouse or keyboard action for 3 minutes)
+  Scenario: AC-3 => The user must be signed out if the user is away from keyboard for 1 minutes (if the user does not do any  mouse or keyboard action for 3 minutes)
 
     When user is away from keyboard for 3 minutes
     Then user must be signed out

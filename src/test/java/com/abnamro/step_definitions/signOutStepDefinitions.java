@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 
 public class signOutStepDefinitions {
@@ -67,16 +68,21 @@ public class signOutStepDefinitions {
 
     @Then("user shouldn't be able to land on home page")
     public void user_shouldn_t_be_able_to_land_on_home_page() {
-        String loginButtonValue = loginPage.loginButton.getAttribute("value");
-       // Assert.assertTrue("Actual and expected page headings didn't match", loginButtonValue.equalsIgnoreCase("login"));
-        System.out.println("loginButtonValue = " + loginButtonValue);
+        Assert.assertNotEquals(Driver.getDriver().getTitle(), "Single Page Application");
     }
 
-    // ===== AC-3 => The user must be signed out if the user close the tab (if there are multiple open tabs in the app, close all of them) ==============
+    // ===== AC-3 => The user must be signed out if the user is away from keyboard for 1 minutes (if the user does not do any  mouse or keyboard action for 3 minutes) ==============
 
+    @When("user is away from keyboard for {int} minutes")
+    public void user_is_away_from_keyboard_for_minutes(Integer int1) {
+        BrowserUtils.sleep(65);
+    }
 
-
-    // ===== AC-4 => The user must be signed out if the user is away from keyboard for 1 minutes (if the user does not do any  mouse or keyboard action for 3 minutes) ==============
+    @Then("user must be signed out")
+    public void user_must_be_signed_out() {
+        String actualPageHeading = homePage.homeHeading.getText();
+        Assert.assertFalse("User must have been signed out, the user is away from keyboard for 1 minutes", actualPageHeading.contains("Home"));
+    }
 
 
 }
