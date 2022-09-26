@@ -7,7 +7,6 @@ Feature: ABN AMRO WebPage Sign Out feature
     Given user is on the home page with entering "valid_user_email_2" and "valid_user_password_2".
 
 
-
   Scenario: AC-1 => User can sign out by using sign out button inside profile info and ends up in login page.
 
     When user clicks sign out button.
@@ -21,9 +20,9 @@ Feature: ABN AMRO WebPage Sign Out feature
     Then user shouldn't be able to land on home page
 
 
-  Scenario: AC-3 => The user must be signed out if the user is away from keyboard for 1 minutes (if the user does not do any  mouse or keyboard action for 3 minutes)
+  Scenario: AC-3 => The user must be signed out if the user is away from keyboard for 1 minute (if the user does not do any  mouse or keyboard action for 3 minutes)
 
-    When user is away from keyboard for 3 minutes
+    When user is away from keyboard for 1 minute
     Then user must be signed out
 
 
