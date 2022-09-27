@@ -1,3 +1,4 @@
+@signOut @wip
 Feature: ABN AMRO WebPage Sign Out feature
 
   As a user I should be able to sign out
@@ -20,7 +21,7 @@ Feature: ABN AMRO WebPage Sign Out feature
     Then user shouldn't be able to land on home page
 
 
-  Scenario: AC-3 => The user must be signed out if the user is away from keyboard for 1 minute (if the user does not do any  mouse or keyboard action for 3 minutes)
+  Scenario: AC-3 => The user must be signed out if the user is away from keyboard for 1 minute (if the user does not do any  mouse or keyboard action for 1 minute)
 
     When user is away from keyboard for 1 minute
     Then user must be signed out

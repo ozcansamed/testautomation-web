@@ -1,13 +1,9 @@
 package com.abnamro.utilities;
 
-
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 public class BrowserUtils {
 
@@ -32,8 +28,9 @@ This method will accept int (in seconds) and execute Thread.sleep for given dura
 
     }
 
-
-
+    /*
+    This method waits for the visibility of given WebElement
+     */
     public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeToWaitInSec);
         return wait.until(ExpectedConditions.visibilityOf(element));

@@ -1,3 +1,4 @@
+@home @wip
 Feature: ABN AMRO WebPage Home Page feature
 
   As a user I should be able to use the home page functionalities.
@@ -32,4 +33,4 @@ Feature: ABN AMRO WebPage Home Page feature
 
   Scenario: AC-6 => Validate on the home page, user sees ABN AMRO logo as a background image.
 
-    Then On the home page, background image is "http://localhost:3001/img/bg1.jpg"
+    Then On the home page, background image is "/img/bg1.jpg"

@@ -5,7 +5,6 @@ In the class we will be able to pass pre- & post- conditions to
  each scenario and each step
  */
 
-import com.abnamro.utilities.BrowserUtils;
 import com.abnamro.utilities.Driver;
 import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
@@ -38,23 +37,5 @@ public class Hooks {
 
         Driver.closeDriver();
     }
-
-
-
-    //System.out.println("====Closing browser using cucumber @After");
-    //System.out.println("====Scenario ended/ Take screenshot if failed!");
-
-
-    // @BeforeStep
-    public void setupStep(){
-        System.out.println("--------> applying setup using @BeforeStep");
-    }
-
-    //@AfterStep
-    public void afterStep(){
-
-        BrowserUtils.sleep(2);
-    }
-
 
 }

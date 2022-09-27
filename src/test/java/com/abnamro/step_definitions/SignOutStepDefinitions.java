@@ -10,20 +10,21 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import io.github.cdimascio.dotenv.Dotenv;
 
-
-public class signOutStepDefinitions {
-
+public class SignOutStepDefinitions {
+    Dotenv dotenv;
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 
     @Given("user is on the home page with entering {string} and {string}.")
     public void user_is_on_the_home_page_with_entering_and(String userEmailAddressEnv, String passwordEnv) {
+        dotenv = Dotenv.configure().load(); // load .env for valid user credentials
         Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.ci.URL"));
         BrowserUtils.sleep(1);
-        String userEmailAddress = System.getenv(userEmailAddressEnv);
-        String password = System.getenv(passwordEnv);
+        String userEmailAddress = System.getenv().getOrDefault(userEmailAddressEnv, dotenv.get(userEmailAddressEnv));
+        String password = System.getenv().getOrDefault(passwordEnv, dotenv.get(passwordEnv));
 
         loginPage.inputUserEmailAddress.sendKeys(userEmailAddress);
         loginPage.inputPassword.sendKeys(password);
@@ -63,8 +64,8 @@ public class signOutStepDefinitions {
 
     // ===== AC-3 => The user must be signed out if the user is away from keyboard for 1 minutes (if the user does not do any  mouse or keyboard action for 3 minutes) ==============
 
-    @When("user is away from keyboard for {int} minutes")
-    public void user_is_away_from_keyboard_for_minutes(Integer int1) {
+    @When("user is away from keyboard for {int} minute")
+    public void user_is_away_from_keyboard_for_minute(Integer int1) {
         BrowserUtils.sleep(65);
     }
 

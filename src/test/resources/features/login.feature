@@ -1,4 +1,4 @@
-@login
+@login @wip
 Feature: ABN AMRO WebPage Login feature
 
   Validate all users can log in with valid credentials and land on home page
@@ -105,7 +105,7 @@ Feature: ABN AMRO WebPage Login feature
 
   Scenario: AC-9 => Validate in the login page, user sees ABN AMRO image as the background image.
 
-    Then Background image is "http://localhost:3002/img/bg1.jpg"
+    Then Background image is "/img/bg1.jpg"
 
   Scenario: AC-10 => Validate in the login page, user sees "#3E3F41" as background-color.
 

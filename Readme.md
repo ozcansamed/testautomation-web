@@ -12,9 +12,14 @@ This repository contains automated UI tests against a static web application.
 
 ## How to run locally
 
-Before using IDE's run configurations, please add variables inside [.env](.env) file as Environment Variables.
+```shell
+mvn test site surefire-report:report-only
+```
 
-For IntelliJ IDEA, if you add those variables into Cucumber Java configuration template, you can easily run test within IDE without worrying about env variables.
+Normally we don't commit [.env](.env) files into `git` but for the sake of assignment and make local running and testing easier we have user credentials in [.env](.env) committed.
+Without `.env` we need to put all the required environment variables into IDE's run configurations.
+
+For IntelliJ IDEA, if you add those variables into "[Cucumber Java](https://cucumber.io/docs/cucumber/environment-variables/)" and "JUnit RoadRunner" configuration templates, you can easily run test within IDE without worrying about env variables even without `.env` file.
 
 You can also use docker compose to run test against static web apps and/or deployed version.
 
@@ -45,6 +50,8 @@ To run the tests;
 docker-compose up -d --build
 ```
 
+> docker compose will read .env files directly and provide them as environment variables to the running services.
+
 With that docker compose command, you will be starting 3 services;
 - tester (testing framework service),
 - web-app (static app to test, used as is without any changes),
@@ -64,6 +71,11 @@ When you are done with the services and the testing, you can stop the containers
 ```shell
 docker-compose down
 ```
+
+### Test Reports
+
+You can find test reports in `target/cucumber-report.html`.
+Surefire reports are located under `target/surefire-reports` and can be used in CI/CD test reports.
 
 ## Test Framework Structure
 

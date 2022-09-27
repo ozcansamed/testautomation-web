@@ -17,9 +17,6 @@ public class HomePage extends BasePage{
     @FindBy (className = "products")
     public WebElement productsHeading;
 
-    @FindBy (className = "contact")
-    public WebElement contactHeading;
-
     @FindBy(xpath = "//section[@id='user']")
     public WebElement profileIcon;
 
@@ -28,8 +25,5 @@ public class HomePage extends BasePage{
 
     @FindBy(xpath = "//div[@class='div-container']/p")
     public WebElement containerText;
-
-    @FindBy(css = "footer > p")
-    public WebElement footerText;
 
 }

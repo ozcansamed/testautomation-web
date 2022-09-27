@@ -18,16 +18,18 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import io.github.cdimascio.dotenv.Dotenv;
 
 
 public class LoginStepDefinitions {
-
+    Dotenv dotenv;
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
+        dotenv = Dotenv.configure().load(); // load .env for valid user credentials
         Driver.getDriver().get(ConfigurationReader.getProperty("web.abnamro.ci.URL"));
         BrowserUtils.sleep(1);
     }
@@ -36,8 +38,9 @@ public class LoginStepDefinitions {
 
     @When("user enters {string} and {string} and logins")
     public void user_enters_and_and_logins(String userEmailAddressEnv, String passwordEnv) {
-        String userEmailAddress = System.getenv(userEmailAddressEnv);
-        String password = System.getenv(passwordEnv);
+        BrowserUtils.sleep(2);
+        String userEmailAddress = System.getenv().getOrDefault(userEmailAddressEnv, dotenv.get(userEmailAddressEnv));
+        String password = System.getenv().getOrDefault(passwordEnv, dotenv.get(passwordEnv));
 
         loginPage.inputUserEmailAddress.sendKeys(userEmailAddress);
         loginPage.inputPassword.sendKeys(password);
@@ -189,6 +192,8 @@ public class LoginStepDefinitions {
     public void background_image_is(String expectedBackgroundImage) {
         String actualBackgroundImage =loginPage.loginSection.getCssValue("background-image");
         Assert.assertTrue(actualBackgroundImage.contains(expectedBackgroundImage));
+        System.out.println("actualBackgroundImage = " + actualBackgroundImage);
+        System.out.println("expectedBackgroundImage = " + expectedBackgroundImage);
     }
 
     // ======== AC-10 => Validate in the login page, user sees "#3E3F41" as background-color. ========
